@@ -9,7 +9,7 @@
   background-color: #4C4C4C;
   margin: 48px auto;
   border-radius: 12px;
-  box-shadow: 0 0 16px black;
+  box-shadow: 0 0 24px -4px black;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -37,8 +37,23 @@
 }
 
 .calcMenuBar {
+
   width: 198px;
   height: 20px;
+}
+
+.menuButtons {
+  background-image: url('icons/osxButtons.png');
+  background-repeat: no-repeat;
+  background-position: 9px 6px;
+  width: 64px;
+  height: 20px;
+}
+
+.menuButtons:hover {
+  background-image: url('icons/osxButtonsHover.png');
+  background-repeat: no-repeat;
+  background-position: 9px 6px;
 }
 
 #screenText {
