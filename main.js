@@ -99,15 +99,15 @@ function clickHandler(){
     break;
 
     case "Divide":
-    if(operation !== null){
-      calculate();
+    if(symbol !== "Equals"){
+      if(operation !== null)  calculate();
+      savedVal = currentVal;
     }
-    savedVal = currentVal;
     currentVal = 0;
     operation = "Divide";
     symbol = "Divide";
     writeDecimal = false;
-    loopVal = 0;
+    loopVal = 1;
     break;
 
     case "Negate":
@@ -127,8 +127,6 @@ function clickHandler(){
     case "Equals":
     logVals("equals-press-")
     writeDecimal = false;
-    // if(operation === "Add" && symbol !== "Equals") savedVal = currentVal;
-    // else if(operation === "Subtract" && symbol !=="Equals") savedVal = currentVal + (currentVal=savedVal, 0);
     symbol = "Equals";
     calculate();
     savedVal = currentVal;
@@ -201,12 +199,12 @@ function calculate(){
     break;
 
     case "Multiply":
-    currentVal *= savedVal;
+    currentVal = savedVal * loopVal;
     writeScreen(currentVal);
     break;
 
     case "Divide":
-    currentVal = savedVal / currentVal;
+    currentVal = savedVal / loopVal;
     writeScreen(currentVal);
     break;
 
