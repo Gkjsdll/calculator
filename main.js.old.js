@@ -1,9 +1,11 @@
 var savedVal = null;
 var currentVal = 0;
 var symbol = null;
+var lastsymbol = null;
 var ac = true;
 var calcLoop = false;
 var loopVal = null;
+var num;
 
 document.addEventListener('DOMContentLoaded', function(){
   var calcBtns = document.getElementsByClassName('calcBtn');
@@ -15,16 +17,15 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function clickHandler(){
-  var num = false;
   var button = this.id.substring(3);
   // console.log("screenText.innerHTML: "+screenText.innerHTML);
-  // console.log("button: "+button);
+  console.log("button: "+button);
   // console.log("isNaN(button): " + isNaN(button));
   if(!isNaN(button)){
     button = parseInt(button);
     num = true;
   }
-  console.log(typeof button);
+  // console.log(typeof button);
   switch (button) {
     case 0:
     case 1:
@@ -39,57 +40,58 @@ function clickHandler(){
     if(calcLoop){
       savedVal = currentVal;
       currentVal = 0;
-      loopVal = null;
     }
+    loopVal = null;
     calcLoop = false;
+    // console.log("symbol = "+symbol);
     break;
     case "Clear":
-    currentVal = 0;
-    loopVal = null;
-    savedVal = null;
     ac = true;
-    calcLoop = false;
     clearType.innerHTML = 'AC';
-    num = false;
-    writeScreen();
-    break;
-    case "Equals":
-    calculate();
-    calcLoop = false;
-    num = false;
+    clear();
     break;
     case "Add":
-    console.log("switch symbol:", symbol );
-    if(symbol !== null && symbol === "Add"){
-      calculate();
-    }
-    else{
-      savedVal = currentVal;
-      currentVal = 0;
-    }
+    savedVal = currentVal;
+    if(loopVal === null) currentVal = 0;
     num = false;
+    lastsymbol = symbol;
     symbol = "Add";
     break;
+    case "Subtract":
+    savedVal = currentVal;
+    if(loopVal === null) currentVal = 0;
+    num = false;
+    lastsymbol = symbol;
+    symbol = "Subtract";
+    break;
+    case "Equals":
+    console.log("equals-symbol: "+symbol);
+    calculate();
+    break;
     default:
-    alert("You broke my calculator!");
+    alert("Not Yet Implemented.");
     break;
   }
-  if(num && screenText.innerHTML.length < 8){
-    currentVal *= 10;
-    currentVal += button;
+  if(num && screenText.innerHTML.length < 8 && button !== "Equals"){
+
+    processNum(button);
     if(ac){
       ac = !ac;
       clearType.innerHTML = 'C';
     }
   }
   // console.log(screenText.innerHTML.length);
-  if(num) writeScreen();
+  if(num) writeScreen(currentVal);
+  console.log("currentVal: ",currentVal);
+  console.log("savedVal: "+savedVal);
+  console.log("loopVal: ",loopVal);
 }
 
 function calculate(){
   // alert("Expression calculated.");
+  // console.log("loopval: "+loopVal);
   if(symbol != null){
-    console.log('symbol not null');
+    // console.log('symbol not null, symbol: '+symbol);
     if(symbol === "Add"){
       if(calcLoop === false){
         loopVal = currentVal;
@@ -99,26 +101,42 @@ function calculate(){
       else{
         currentVal += loopVal;
       }
-      writeScreen();
+      writeScreen(currentVal);
+    }
+    else if(symbol === "Subtract"){
+        // console.log("subtract-loopval: "+loopVal);
+      if(loopVal !== null){
+        calcLoop = true;
+        currentVal -= loopVal;
+      }
+      else{
+          loopVal = currentVal;
+          currentVal = savedVal - loopVal;
+      }
+      writeScreen(currentVal);
+    }
+    else if(symbol === "num"){
+
     }
   }
-  symbol = null;
 }
 
-function proccessNum(){
+function processNum(num){
   if(num && screenText.innerHTML.length < 8){
     currentVal *= 10;
-    currentVal += button;
+    currentVal += num;
   }
 }
 
-function writeScreen(){
-  if(calcLoop){
-    screenText.innerHTML = currentVal;
-    console.log("calcLoop: ",calcLoop);
-  }
-  else{
-    screenText.innerHTML = currentVal;
-    console.log("calcLoop: ",calcLoop);
-  }
+function writeScreen(input){
+    screenText.innerHTML = input;
+}
+
+function clear(){
+  currentVal = 0;
+  loopVal = null;
+  savedVal = null;
+  calcLoop = false;
+  num = false;
+  writeScreen(currentVal);
 }
