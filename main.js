@@ -1,10 +1,12 @@
 var symbol = null;
 var operation = null;
 var currentVal = 0;
-var savedVal = 0;
+var savedVal = null;
+var loopVal = null;
 var decVal = 0;
 var ac = true;
 var writeDecimal = false;
+
 document.addEventListener('DOMContentLoaded', function(){
   var calcBtns = document.getElementsByClassName('calcBtn');
   var screenText = document.getElementById('screenText')
@@ -20,6 +22,7 @@ function clickHandler(){
     button = parseInt(button);
     num = true;
   }
+  console.log("***button: "+button+"***");
   switch (button) {
 
     case 0:
@@ -40,6 +43,7 @@ function clickHandler(){
       processNum(button);
       writeScreen(currentVal);
     }
+
     if(ac){
       ac = false;
       clearType.innerHTML = 'C';
@@ -47,6 +51,9 @@ function clickHandler(){
     break;
 
     case "Clear":
+    if(ac === true){
+      window.location.reload(false);
+    }
     ac = true;
     clearType.innerHTML = 'AC';
     clear();
@@ -55,36 +62,40 @@ function clickHandler(){
     break;
 
     case "Add":
-    if(operation !== null){
-      calculate();
+    logVals("add-press-");
+    if(symbol !== "Equals"){
+      if(operation !== null)  calculate();
+      savedVal = currentVal;
     }
-    savedVal = currentVal;
     currentVal = 0;
     operation = "Add";
     symbol = "Add"
     writeDecimal = false;
+    loopVal = 0;
     break;
 
     case "Subtract":
-    if(operation !== null){
-      calculate();
+    if(symbol !== "Equals"){
+      if(operation !== null)  calculate();
+      savedVal = currentVal;
     }
-    savedVal = currentVal;
     currentVal = 0;
     operation = "Subtract";
     symbol = "Subtract";
     writeDecimal = false;
+    loopVal = 0;
     break;
 
     case "Multiply":
-    if(operation !== null){
-      calculate();
+    if(symbol !== "Equals"){
+      if(operation !== null)  calculate();
+      savedVal = currentVal;
     }
-    savedVal = currentVal;
     currentVal = 0;
     operation = "Multiply";
     symbol = "Multiply";
     writeDecimal = false;
+    loopVal = 1;
     break;
 
     case "Divide":
@@ -96,6 +107,7 @@ function clickHandler(){
     operation = "Divide";
     symbol = "Divide";
     writeDecimal = false;
+    loopVal = 0;
     break;
 
     case "Negate":
@@ -112,6 +124,16 @@ function clickHandler(){
     writeDecimal = true;
     break;
 
+    case "Equals":
+    logVals("equals-press-")
+    writeDecimal = false;
+    // if(operation === "Add" && symbol !== "Equals") savedVal = currentVal;
+    // else if(operation === "Subtract" && symbol !=="Equals") savedVal = currentVal + (currentVal=savedVal, 0);
+    symbol = "Equals";
+    calculate();
+    savedVal = currentVal;
+    break;
+
     default:
     alert("Button not yet implemented");
     break;
@@ -119,6 +141,7 @@ function clickHandler(){
 }
 
 function processNum(num){
+  logVals("pre-process-num");
   if(screenText.innerHTML.length < 8 && !writeDecimal){
     currentVal *= 10;
     currentVal += num;
@@ -131,6 +154,8 @@ function processNum(num){
       currentVal += decVal;
     }
   }
+  loopVal = currentVal;
+  logVals("post-process-num");
 }
 
 function writeScreen(input){
@@ -153,21 +178,25 @@ function writeScreen(input){
 function clear(){
   currentVal = 0;
   savedVal = null;
+  symbol = null;
+  operation = null;
+  loopVal = null;
   decVal = 0;
   writeDecimal = false;
   writeScreen(currentVal);
 }
 
 function calculate(){
+  console.log("Calculating: "+operation);
+  console.log("Symbol: "+symbol);
   switch (operation) {
-
     case "Add":
-    currentVal = currentVal + savedVal;
+    currentVal = savedVal + loopVal;
     writeScreen(currentVal);
     break;
 
     case "Subtract":
-    currentVal = savedVal - currentVal;
+    currentVal = savedVal - loopVal;
     writeScreen(currentVal);
     break;
 
@@ -184,6 +213,12 @@ function calculate(){
     default:
     alert("Unassigned operation: "+operation);
     break;
-
   }
+  logVals("post-Cal: ");
+}
+
+function logVals(prefix){
+  console.log(prefix+"currentVal: "+currentVal);
+  console.log(prefix+"savedVal: "+savedVal);
+  console.log(prefix+"loopVal: "+loopVal);
 }

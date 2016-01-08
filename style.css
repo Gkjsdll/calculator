@@ -83,12 +83,14 @@
   background-image: url('icons/maximize.png');
 }
 
+
 #negateImg{
   background-image: url('icons/negate.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 70%;
   margin-top: 0px;
+  
 }
 
 .buttons {
