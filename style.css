@@ -48,9 +48,9 @@
 
 .osxBtn {
   position: absolute;
-  top:5px;
+  top:6px;
   width:12px;
-  height: 12px;
+  height:12px;
 }
 
 #close {
@@ -59,12 +59,12 @@
 }
 
 #minimize {
-  left: 27px;
+  left: 29px;
   background-image: url('icons/minimize.png');
 }
 
 #maximize {
-  left: 45px;
+  left: 49px;
   background-image: url('icons/maximize.png');
 }
 
