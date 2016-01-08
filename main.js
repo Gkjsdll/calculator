@@ -22,7 +22,6 @@ function clickHandler(){
     button = parseInt(button);
     num = true;
   }
-  console.log("***button: "+button+"***");
   switch (button) {
 
     case 0:
@@ -62,7 +61,6 @@ function clickHandler(){
     break;
 
     case "Add":
-    logVals("add-press-");
     if(symbol !== "Equals"){
       if(operation !== null)  calculate();
       savedVal = currentVal;
@@ -125,7 +123,6 @@ function clickHandler(){
     break;
 
     case "Equals":
-    logVals("equals-press-")
     writeDecimal = false;
     symbol = "Equals";
     calculate();
@@ -139,7 +136,6 @@ function clickHandler(){
 }
 
 function processNum(num){
-  logVals("pre-process-num");
   if(screenText.innerHTML.length < 8 && !writeDecimal){
     currentVal *= 10;
     currentVal += num;
@@ -153,7 +149,6 @@ function processNum(num){
     }
   }
   loopVal = currentVal;
-  logVals("post-process-num");
 }
 
 function writeScreen(input){
@@ -185,8 +180,6 @@ function clear(){
 }
 
 function calculate(){
-  console.log("Calculating: "+operation);
-  console.log("Symbol: "+symbol);
   switch (operation) {
     case "Add":
     currentVal = savedVal + loopVal;
@@ -212,11 +205,4 @@ function calculate(){
     alert("Unassigned operation: "+operation);
     break;
   }
-  logVals("post-Cal: ");
-}
-
-function logVals(prefix){
-  console.log(prefix+"currentVal: "+currentVal);
-  console.log(prefix+"savedVal: "+savedVal);
-  console.log(prefix+"loopVal: "+loopVal);
 }
