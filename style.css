@@ -1,0 +1,158 @@
+.container {
+  text-align: center;
+  font-family: Helvetica;
+}
+
+.calcBody{
+  width: 234px;
+  height: 322px;
+  background-color: #4C4C4C;
+  margin: 48px auto;
+  border-radius: 12px;
+  box-shadow: 0 0 16px black;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.calcBody * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.screen {
+  width: 234px;
+  text-align: right;
+  color: white;
+  font-size: 48px;
+  font-weight: lighter;
+  position: absolute;
+}
+
+.calcMenuBar {
+  width: 198px;
+  height: 20px;
+}
+
+#screenText {
+  width: 198px;
+  margin: 0px auto 0px 8px;
+}
+
+.osxBtn {
+  position: absolute;
+  top:5px;
+  width:12px;
+  height: 12px;
+}
+
+#close {
+  left: 9px;
+  background-image: url('icons/close.png');
+}
+
+#minimize {
+  left: 27px;
+  background-image: url('icons/minimize.png');
+}
+
+#maximize {
+  left: 45px;
+  background-image: url('icons/maximize.png');
+}
+
+.buttons {
+  display: inline-block;
+  padding-top:75px;
+  width:100%;
+  font-size:0px;
+}
+
+.calcBtn {
+  display: inline-block;
+  margin: 0px;
+  width: 24.5%;
+  height: 48px;
+  border-left: 1px solid #8E8E8E;
+  border-top: 1px solid #8E8E8E;
+  text-align:center;
+  vertical-align: middle;
+}
+
+.grey {
+  background-color: #D6D6D6;
+  color: black;
+}
+
+.orange {
+  background-color: #F5933E;
+  color: white;
+}
+
+.lightGrey {
+  background-color: #E0E0E0;
+  color: black;
+}
+
+.leftEdge{
+  border-left: none;
+  margin-left: 0.5%;
+}
+
+#btn0 {
+  width:49.5%;
+  border-bottom-left-radius: 10px;
+}
+
+#btn0 p{
+    margin-right: 50%;
+}
+
+#btnEquals{
+  border-bottom-right-radius: 10px;
+}
+
+.calcBtn p {
+  height: 100%;
+  font-size: 18px;
+  margin: 14px 0 0 0;
+}
+
+.lightGrey p {
+  font-size: 24px;
+  margin-top: 10px;
+  font-weight: lighter;
+}
+
+p.unicode {
+  font-size:28px;
+  font-weight: lighter;
+  margin-top: 6px;
+}
+
+.orange p {
+  font-size: 26px;
+  font-weight: lighter;
+  margin-top: 8px;
+}
+
+.calcBtn.grey:active{
+  background-color: #A9A9A9;
+
+}
+
+.calcBtn.lightGrey:active{
+  background-color: #B2B2B2;
+}
+
+.calcBtn.orange:active{
+  background-color: #C2732F;
+  color: #686868;
+}
